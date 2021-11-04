@@ -1,0 +1,35 @@
+{
+  "name": "zoom-clone",
+  "version": "1.0.0",
+  "description": "live video chat app similar to zoom",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cechiorlu/zoom-clone.git"
+  },
+  "keywords": [
+    "zoom",
+    "socket",
+    "video",
+    "chat",
+    "node"
+  ],
+  "author": "Chimzi Chiorlu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cechiorlu/zoom-clone/issues"
+  },
+  "homepage": "https://github.com/cechiorlu/zoom-clone#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.14",
+    "peer": "^0.6.1",
+    "socket.io": "^4.3.1",
+    "uuid": "^8.3.2"
+  }
+}
