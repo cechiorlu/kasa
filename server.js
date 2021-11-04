@@ -25,7 +25,12 @@ app.get('/:room', (req, res) => {
 io.on('connection', socket => {
     socket.on('join-room', async (roomId, userId) => {
         await socket.join(roomId);
-        socket.to(roomId).broadcast.emit('user-connected', userId);
+        try {
+            socket.to(roomId).emit('user-connected', userId);
+        }
+        catch (error){
+            console.error(error)
+        }
     })
 })
 
