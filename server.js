@@ -40,7 +40,7 @@ io.on('connection', socket => {
         socket.on('message', (message) => {
             console.log(`${message} - socket`)
             //send message to the same room
-            socket.to(roomId).emit('createMessage', message)
+            io.to(roomId).emit('createMessage', message, userId)
         });
 
         socket.on('disconnect', () => {

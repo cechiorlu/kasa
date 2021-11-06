@@ -4,7 +4,7 @@ const videoGrid = document.getElementById('video_grid')
 const myPeer = new Peer(undefined, {
     path: '/peerjs',
     host: '/',
-    port: '443'
+    port: '3000'
 });
 
 let myVideoStream;
@@ -35,20 +35,25 @@ navigator.mediaDevices.getUserMedia({
 let list = document.querySelector('ul')
 let text = document.querySelector("input");
 
-window.addEventListener('keydown', (e) => {
+
+window.addEventListener('keydown', async (e) => {
     if (e.keyCode === 13 && text.value.length !== 0) {
-        socket.emit('message', text.value);
+        await socket.emit('message', text.value);
         text.value = ''
-        // e.target.blur()
+        e.target.blur()
     }
 })
 
-socket.on("createMessage", message => {
+socket.on("createMessage", (message, userId) => {
     console.log(message)
-    list.append(`<li class="message"><b>user</b><br/>${message}</li>`);
+    let listItem = document.createElement('li')
+    listItem.className = 'message'
+    listItem.appendChild(document.createTextNode(`${userId}: ${message}`))
+    list.append(listItem)
 })
 
 socket.on('user-disconnected', userId => {
+    console.log(`${userId} disconnected`)
     if (peers[userId]) peers[userId].close()
 })
 
@@ -116,7 +121,7 @@ const setMuteButton = () => {
 
 const setUnmuteButton = () => {
     const html = `
-        <i class="fa fa-microphone-slash" aria-hidden="true"></i>
+        <i class="fa fa-microphone-slash unmute" aria-hidden="true"></i>
         <span class="controls_description">Unmute</span>
     `
     document.querySelector('.mic_button').innerHTML = html;
